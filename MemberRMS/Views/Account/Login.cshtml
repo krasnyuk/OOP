@@ -1,0 +1,20 @@
+﻿@using MemberRMS.Models
+@model Login
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Log in</h2>
+<div>
+    @using (@Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <label>Enter username</label>
+        @Html.TextBoxFor(m=>m.Username,new {@class="form-control"})
+        <label>Enter password</label>
+        @Html.PasswordFor(m=>m.Psssword, new { @class = "form-control" })
+        <button class="btn btn-primary">Log in</button>
+    }
+</div>
+
