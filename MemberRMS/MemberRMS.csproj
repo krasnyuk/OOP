@@ -205,63 +205,9 @@
     <Compile Include="Ingredient.cs">
       <DependentUpon>RMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cart.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CartDetails.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Category.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Image.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Ingredient.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IngredientsViewModel.cs" />
     <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\Order.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OrderDetails.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductIngredient.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Register.cs" />
-    <Compile Include="Models\RMS.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RMS.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RMS.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RMS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RMS.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\webpages_Membership.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\webpages_OAuthMembership.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\webpages_Roles.cs">
-      <DependentUpon>RMS.tt</DependentUpon>
-    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>RMSModel.tt</DependentUpon>
     </Compile>
@@ -313,16 +259,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\RMS.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RMS.edmx</DependentUpon>
-      <LastGenOutput>RMS.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\RMS.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RMS.edmx</DependentUpon>
-      <LastGenOutput>RMS.cs</LastGenOutput>
-    </Content>
     <Content Include="RMSModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RMSModel.edmx</DependentUpon>
@@ -359,13 +295,6 @@
     <Content Include="RMSModel.edmx.diagram">
       <DependentUpon>RMSModel.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\RMS.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RMS.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\RMS.edmx.diagram">
-      <DependentUpon>RMS.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\assets\font-awesome\fonts\fontawesome-webfontba72.eot" />
     <Content Include="Scripts\assets\font-awesome\fonts\fontawesome-webfontba72.ttf" />
     <Content Include="Scripts\assets\font-awesome\fonts\fontawesome-webfontba72.woff" />
@@ -375,6 +304,34 @@
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regulard41d.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\css\images\animated-overlay.gif" />
+    <Content Include="Scripts\css\images\code.png" />
+    <Content Include="Scripts\css\images\php.png" />
+    <Content Include="Scripts\css\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Scripts\css\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Scripts\css\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Scripts\css\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Scripts\css\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Scripts\css\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Scripts\css\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="Scripts\css\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="Scripts\css\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Scripts\css\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Scripts\css\images\ui-icons_056b93_256x240.png" />
+    <Content Include="Scripts\css\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Scripts\css\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Scripts\css\images\ui-icons_f5e175_256x240.png" />
+    <Content Include="Scripts\css\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Scripts\css\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Scripts\css\jquery-ui-timepicker-addon.css" />
+    <Content Include="Scripts\css\jquery-ui.css" />
+    <Content Include="Scripts\css\prettify.css" />
+    <Content Include="Scripts\css\trirand\addons\ui.multiselect.css" />
+    <Content Include="Scripts\css\trirand\ui-anim_basic_16x16_2.gif" />
+    <Content Include="Scripts\css\trirand\ui.jqgrid-bootstrap-ui.css" />
+    <Content Include="Scripts\css\trirand\ui.jqgrid-bootstrap.css" />
+    <Content Include="Scripts\css\trirand\ui.jqgrid.css" />
+    <Content Include="Scripts\css\ui.multiselect.css" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -382,6 +339,88 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\codetabs-b.js" />
+    <Content Include="Scripts\js\codetabs.js" />
+    <Content Include="Scripts\js\context-menu.js" />
+    <Content Include="Scripts\js\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\js\jquery-ui.min.js" />
+    <Content Include="Scripts\js\jquery.cookie.js" />
+    <Content Include="Scripts\js\jquery.min.js" />
+    <Content Include="Scripts\js\prettify\lang-apollo.js" />
+    <Content Include="Scripts\js\prettify\lang-basic.js" />
+    <Content Include="Scripts\js\prettify\lang-clj.js" />
+    <Content Include="Scripts\js\prettify\lang-css.js" />
+    <Content Include="Scripts\js\prettify\lang-dart.js" />
+    <Content Include="Scripts\js\prettify\lang-erlang.js" />
+    <Content Include="Scripts\js\prettify\lang-go.js" />
+    <Content Include="Scripts\js\prettify\lang-hs.js" />
+    <Content Include="Scripts\js\prettify\lang-lisp.js" />
+    <Content Include="Scripts\js\prettify\lang-llvm.js" />
+    <Content Include="Scripts\js\prettify\lang-lua.js" />
+    <Content Include="Scripts\js\prettify\lang-matlab.js" />
+    <Content Include="Scripts\js\prettify\lang-ml.js" />
+    <Content Include="Scripts\js\prettify\lang-mumps.js" />
+    <Content Include="Scripts\js\prettify\lang-n.js" />
+    <Content Include="Scripts\js\prettify\lang-pascal.js" />
+    <Content Include="Scripts\js\prettify\lang-proto.js" />
+    <Content Include="Scripts\js\prettify\lang-r.js" />
+    <Content Include="Scripts\js\prettify\lang-rd.js" />
+    <Content Include="Scripts\js\prettify\lang-scala.js" />
+    <Content Include="Scripts\js\prettify\lang-sql.js" />
+    <Content Include="Scripts\js\prettify\lang-tcl.js" />
+    <Content Include="Scripts\js\prettify\lang-tex.js" />
+    <Content Include="Scripts\js\prettify\lang-vb.js" />
+    <Content Include="Scripts\js\prettify\lang-vhdl.js" />
+    <Content Include="Scripts\js\prettify\lang-wiki.js" />
+    <Content Include="Scripts\js\prettify\lang-xq.js" />
+    <Content Include="Scripts\js\prettify\lang-yaml.js" />
+    <Content Include="Scripts\js\prettify\prettify.js" />
+    <Content Include="Scripts\js\prettify\run_prettify.js" />
+    <Content Include="Scripts\js\themeswitchertool.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-ar.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-bg.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-ca.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-cn.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-cs.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-de.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-dk.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-el.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-en.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-es.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-fa.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-fi.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-fr.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-gl.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-he.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-hr.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-hu.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-id.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-is.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-it.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-ja.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-kr.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-lt.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-me.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-nl.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-no.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-pl.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-pt-br.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-pt.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-ro.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-ru.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-sk.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-sr-latin.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-sr.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-sv.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-th.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-tr.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-tw.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-ua.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-uk.js" />
+    <Content Include="Scripts\js\trirand\i18n\grid.locale-vi.js" />
+    <Content Include="Scripts\js\trirand\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\js\trirand\src\jquery.jqGrid.js" />
+    <Content Include="Scripts\js\ui.multiselect.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
