@@ -13,10 +13,10 @@ namespace MemberRMS.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DB_9DFA0A_RMSEntities1 : DbContext
+    public partial class RecipeManagmentSystemEntities : DbContext
     {
-        public DB_9DFA0A_RMSEntities1()
-            : base("name=DB_9DFA0A_RMSEntities1")
+        public RecipeManagmentSystemEntities()
+            : base("name=RecipeManagmentSystemEntities")
         {
         }
     
