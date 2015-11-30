@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MemberRMS.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace MemberRMS.Controllers
 {
@@ -29,7 +30,8 @@ namespace MemberRMS.Controllers
         }
         public JsonResult IngredientJsonResultData(string sidx, string sord, int page, int rows)
         {
-
+            List<int> aas = new List<int>();
+           
             var list = GetIngredients(sidx, sord);
             var pageIndex = Convert.ToInt32(page) - 1;
             var pageSize = rows;
