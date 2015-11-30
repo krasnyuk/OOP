@@ -1,0 +1,22 @@
+﻿body {
+    font: 14px Tahoma, Verdana;
+}
+
+#div-header {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+}
+
+#div-content {
+    width: 40%;
+    background-color: white !important;
+    margin: 10px auto;
+}
+
+#menu input {
+    /*width: 10%;*/
+    margin-left: 4px;
+    /*height: 40px;*/
+}
+

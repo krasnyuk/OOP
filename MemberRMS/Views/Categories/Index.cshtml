@@ -1,0 +1,95 @@
+﻿
+@model IEnumerable<MemberRMS.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_dashboard.cshtml";
+}
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" type="text/css"/>
+   
+   
+    
+    <script src="@Url.Content("~/Scripts/jquery.jstree.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/script.js")" type="text/javascript"></script>
+
+    @functions
+{
+        private string _str = "";
+        public string CreateNode(Category node)
+        {
+            var selNodes = Model.Where(x => x.ParentCategoryID == node.CategoryID).ToList();
+            if (selNodes.Count() == 0)
+            {
+                return "";
+            }
+
+            foreach (var selNode in selNodes)
+            {
+                Category childNode = new Category {CategoryID = selNode.CategoryID};
+                _str += "<li id='node_" + selNode.CategoryID + "' rel='" + selNode.Title + "'><a href='#'>" + selNode.Title + "</a><ul>";
+                CreateNode(childNode);
+                _str += "</ul></li>";
+            }
+            return _str;
+        }
+    }
+
+<div id="menu">
+    <input id="add_folder" class="btn btn-success" data-target=".bootstrapmodal" type="button" value="Add subcategory"/>
+    <input id="rename" class="btn btn-primary" data-target=".bootstrapmodal" type="button" value="Rename category"/>
+    <input id="remove" class="btn btn-danger " data-target=".bootstrapmodal" type="button" value="Remove category"/>
+    <a class="btn btn-success" data-toggle="modal" data-target=".bootstrapmodal"> <span class="glyphicon glyphicon-check"> </span> Add New Category </a>
+</div>
+
+
+<div class="modal fade bootstrapmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                
+                <button data-dismiss="modal" class="close"><span>&times;</span> </button>
+                <div class="modal-title">
+                    Adding new category
+                </div>
+
+            </div>
+            <style>
+                
+                .h150 {
+                    height: 150px;
+                }
+            </style>
+
+            <div class="modal-body h150">
+                
+                @Html.Partial("_CategoriesPartial1", new Category(200,"",null))
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div id="tree">
+            <ul>
+                @{
+                    var nodes = Model.Where(x => x.ParentCategoryID == null).ToList();
+                    foreach (var node in nodes)
+                    {
+                        Category root = new Category { CategoryID = node.CategoryID };
+                        <li id="node_@node.CategoryID" rel="drive">
+                            <a href="#">@node.Title</a>
+                            <ul>
+                                @Html.Raw(CreateNode(root))
+                            </ul>
+                        </li>
+                        _str = "";
+                    }
+                }
+            </ul>
+        </div>
+  
+
+
