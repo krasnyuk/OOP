@@ -1,0 +1,103 @@
+﻿@model IEnumerable<MemberRMS.Ingredient>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_dashboard.cshtml";
+
+
+}
+<!-- We support more than 40 localizations -->
+<script type="text/ecmascript" src="../../Scripts/js/trirand/i18n/grid.locale-en.js"></script>
+<!-- This is the Javascript file of jqGrid -->
+<script type="text/ecmascript" src="../../Scripts/js/trirand/jquery.jqGrid.min.js"></script>
+<!-- A link to a Boostrap  and jqGrid Bootstrap CSS siles-->
+
+<link rel="stylesheet" type="text/css" media="screen" href="../../Scripts/css/trirand/ui.jqgrid-bootstrap.css?r=591" />
+<script>
+    $.jgrid.defaults.width = 1280;
+    $.jgrid.defaults.height = 500;
+    $.jgrid.defaults.responsive = false;
+    $.jgrid.defaults.styleUI = 'Bootstrap';
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<table id="jqg"></table>
+<div id="jpager"></div>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#jqg").jqGrid({
+                url: '@Url.Action("IngredientJsonResultData", "Ingredients")',
+                datatype: "json",
+                colNames: ['I_ID', 'Title', 'LongDescription', 'Cost', 'Weight', 'CategoryName'],
+                colModel: [
+                    { name: 'IngredientID', index: 'IngredientID', width: 40, sorttype: "int", editable: true, edittype: 'text', key: true },
+                    { name: 'Title', index: 'Title', editable: true, edittype: 'text', width: 70 },
+                    { name: 'LongDescription', index: 'LongDescription', editable: true, edittype: 'text', width: 70 },
+                    { name: 'Cost', index: 'Cost', editable: true, edittype: 'text', width: 50 },
+                    { name: 'Weight', index: 'Weight', editable: true, edittype: 'text', width: 70 },
+                    { name: 'CategoryName', index: 'CategoryName', editable: true, edittype: 'text', width: 70 }
+                ],
+                rowNum: 10,
+                rowList: [10, 20, 30],
+                width: 1000,
+                // height : 300,
+                pager: '#jpager',
+                loadonce:true,
+                sortname: 'IngredientID',
+                sortorder: "desc",
+                caption: "List Ingredient"
+            });
+
+            function update(act) {
+
+                return {
+                    closeAfterAdd: true, // закрыть после добавления
+
+                    width: 400,
+                    closeAfterEdit: true, // закрыть после редактирования
+                    reloadAfterSubmit: true, // обновление
+                    drag: true,
+                    onclickSubmit: function (params) {
+
+                        var list = $("#jqg");
+                        var selectedRow = list.getGridParam("selrow");
+                        rowData = list.getRowData(selectedRow);
+                        if (act === "add")
+                            params.url= '@Url.Action("Create")';
+                        else if (act === "del")
+                            params.url = '@Url.Action("Delete")';
+                        else if (act === "edit")
+                            params.url = '@Url.Action("Edit")';
+                    },
+                    afterSubmit: function (response, postdata) {
+                        // обновление грида
+                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
+                        return [true, "", 0];
+                    }
+                };
+            }
+
+            $("#jqg").jqGrid('navGrid', '#jpager', {
+
+                    search: true,
+                    searchtext: "",
+                    refresh: true,
+                    height : 70, // dddddddddddddddddddddd
+                    add: true, // добавление
+                    del: true, // удаление
+                    edit: true, // редактирование
+                    view: true, // просмотр записи
+                    viewtext: "",
+                    viewtitle: "",
+                    addtext: "",
+                    edittext: "",
+                    deltext: ""
+                },
+                update("edit"), // обновление
+                update("add"), // добавление
+                update("del") // удаление
+            );;
+        });
+</script>
+
