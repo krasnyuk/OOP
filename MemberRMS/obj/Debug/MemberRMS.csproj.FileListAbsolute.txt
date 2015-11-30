@@ -271,7 +271,6 @@ C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\bin\WebMatrix.Data.xml
 C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\bin\WebMatrix.WebData.xml
 C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\bin\Newtonsoft.Json.xml
 C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\obj\Debug\MemberRMS.csproj.App.config
-C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\obj\Debug\MemberRMS.csprojResolveAssemblyReference.cache
 C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\obj\Debug\MemberRMS.dll
 C:\Users\stepa\OneDrive\ASP\RMS\MemberRMS\obj\Debug\MemberRMS.pdb
 D:\OOP\OOP\MemberRMS\bin\roslyn\csc.exe
