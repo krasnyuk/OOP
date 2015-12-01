@@ -31,20 +31,24 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
-        <label>Enter username</label>
+        @Html.LabelFor(m => m.Username, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-        <label>Enter first name</label>
+        @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        <label>Enter last name</label>
-         @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        <label>Enter birhtday</label>
-         @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
-        <label>Enter telephone</label>
+        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Birthday, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Telephone, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control" })
-       <label>Enter password</label>
-        @Html.PasswordFor(m => m.Psssword, new { @class = "form-control" })
-        @Html.DropDownList("role",roles,"select a role")
-        @Html.DropDownList("gender", gender, "select a gender")
+        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+        @Html.LabelFor(m => m.Gender, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Gender, new { @class = "form-control" })
+        @Html.DropDownList("role", roles, "select a role")
         <button class="btn btn-primary">Create</button>
     }
 </div>

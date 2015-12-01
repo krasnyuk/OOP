@@ -54,7 +54,15 @@ namespace MemberRMS.Controllers
             {
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(regdata.Username,regdata.Psssword);
+                    WebSecurity.CreateUserAndAccount(regdata.Username, regdata.Password,
+                        propertyValues: new
+                        {
+                            FirstName = regdata.FirstName,
+                            LastName = regdata.LastName,
+                            Birthday = regdata.Birthday,
+                            Telephone = regdata.Telephone,
+                            Gender = regdata.Gender
+                        });
                     Roles.AddUserToRole(regdata.Username, role);
                    
                     return RedirectToAction("Index", "Home");

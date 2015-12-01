@@ -15,6 +15,9 @@
         <label>Enter password</label>
         @Html.PasswordFor(m=>m.Psssword, new { @class = "form-control" })
         <button class="btn btn-primary">Log in</button>
+        <p>
+            @Html.ActionLink("Зарегистрируйтесь", "Register"), если у вас нет учетной записи.
+        </p>
     }
 </div>
 
