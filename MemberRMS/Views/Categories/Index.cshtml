@@ -7,9 +7,6 @@
 }
 
     <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" type="text/css"/>
-   
-   
-    
     <script src="@Url.Content("~/Scripts/jquery.jstree.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/script.js")" type="text/javascript"></script>
 
@@ -55,15 +52,8 @@
                 </div>
 
             </div>
-            <style>
-                
-                .h150 {
-                    height: 150px;
-                }
-            </style>
-
+            <style>.h150 {height: 150px;}</style>
             <div class="modal-body h150">
-                
                 @Html.Partial("_CategoriesPartial1", new Category(200,"",null))
             </div>
         </div>
