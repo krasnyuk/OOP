@@ -15,7 +15,7 @@ namespace MemberRMS.Controllers
     {
         private RecipeManagmentSystemEntities db = new RecipeManagmentSystemEntities();
         // GET: Ingredients
-        public ActionResult Index()
+        public ActionResult Index() 
         {
             var ingredient = db.Ingredient.Include(i => i.Category);
             return View(ingredient.ToList());
@@ -153,16 +153,18 @@ namespace MemberRMS.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 Ingredient item = new Ingredient
                 {
                     CategoryID = Convert.ToInt16(ingredient.CategoryName),
-                    IngredientID = ingredient.IngredientID,
+                    IngredientID = (db.Ingredient.Max(x => x.IngredientID)+1),
                     Title = ingredient.Title,
                     LongDescription = ingredient.LongDescription,
                     Cost = ingredient.Cost,
                     Weight = ingredient.Weight
                 };
-                
+               
+
                 db.Ingredient.Add(item);
                 db.SaveChanges();
 
