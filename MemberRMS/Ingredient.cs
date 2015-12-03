@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace MemberRMS
 {
     using System;
@@ -21,8 +24,9 @@ namespace MemberRMS
             this.ProductIngredient = new HashSet<ProductIngredient>();
             this.ProductIngredient1 = new HashSet<ProductIngredient>();
         }
-    
+        
         public int IngredientID { get; set; }
+        
         public string Title { get; set; }
         public string LongDescription { get; set; }
         public Nullable<double> Cost { get; set; }

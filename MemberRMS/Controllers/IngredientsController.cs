@@ -4,8 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using MemberRMS.Models;
 using Microsoft.Ajax.Utilities;
+using WebGrease;
 
 namespace MemberRMS.Controllers
 {
@@ -19,14 +21,75 @@ namespace MemberRMS.Controllers
             return View(ingredient.ToList());
         }
         // POST: Ingredients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Delete(int id)
         {
             Ingredient ingredient = db.Ingredient.Find(id);
             db.Ingredient.Remove(ingredient);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        //[System.Web.Http.HttpPost]
+        //public void Delete(int id)
+        //{
+        //    Ingredient ingredient = db.Ingredient.Find(id);
+        //    db.Ingredient.Remove(ingredient);
+        //    db.SaveChanges();
+        //}
+
+        public JsonResult CategoriesData()
+        {
+            var result = (from p in db.Category.OrderBy(x => x.CategoryID)
+                          select new CategoriesViewModel
+                          {
+                              CategoryID = p.CategoryID,
+                              ParentCategoryID = p.ParentCategoryID,
+                              Title = p.Title
+                          }).ToList();
+            var list = result;
+            
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+        
+
+        public JsonResult CategoryJsonResultData(string sidx, string sord, int page, int rows)
+        {
+            List<int> aas = new List<int>();
+
+            var list = GetIngredients(sidx, sord);
+            var pageIndex = Convert.ToInt32(page) - 1;
+            var pageSize = rows;
+            var totalRecords = list.Count();
+            var totalPages = (int)Math.Ceiling((float)totalRecords / (float)pageSize);
+
+            list = (list.Skip(pageIndex * pageSize).Take(pageSize)).ToList();
+
+            var jsonData = new
+            {
+                total = totalPages,
+                page = page,
+                records = totalRecords,
+                rows = (
+                    from p in list
+                    select new
+                    {
+                        i = p.IngredientID.ToString(),
+                        cell = new string[] {
+                            p.IngredientID.ToString(),
+                            p.Title,
+                            p.LongDescription,
+                            p.Cost.ToString(),
+                            p.Weight.ToString(),
+                            p.CategoryName
+                        }
+                    }).ToArray()
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
         public JsonResult IngredientJsonResultData(string sidx, string sord, int page, int rows)
         {
@@ -86,12 +149,21 @@ namespace MemberRMS.Controllers
         }
 
         [System.Web.Http.HttpPost]
-        public void Create([Bind(Include = "IngredientID,Title,LongDescription,Cost,Weight,CategoryID")] Ingredient ingredient)
+        public void Create( IngredientsViewModel ingredient)
         {
             if (ModelState.IsValid)
             {
-                // проверить на исключение
-                db.Ingredient.Add(ingredient);
+                Ingredient item = new Ingredient
+                {
+                    CategoryID = Convert.ToInt16(ingredient.CategoryName),
+                    IngredientID = ingredient.IngredientID,
+                    Title = ingredient.Title,
+                    LongDescription = ingredient.LongDescription,
+                    Cost = ingredient.Cost,
+                    Weight = ingredient.Weight
+                };
+                
+                db.Ingredient.Add(item);
                 db.SaveChanges();
 
             }
@@ -99,25 +171,40 @@ namespace MemberRMS.Controllers
         }
 
         [System.Web.Http.HttpPost]
-        public void Edit([Bind(Include = "IngredientID,Title,LongDescription,Cost,Weight,CategoryID")] Ingredient ingredient) //UserID', 'FirsName', 'LastName', 'Mail
+        public void Edit( IngredientsViewModel ingredient) 
         {
+            Ingredient item = new Ingredient
+            {
+                CategoryID = Convert.ToInt16(ingredient.CategoryName),
+                IngredientID = ingredient.IngredientID,
+                Title = ingredient.Title,
+                LongDescription = ingredient.LongDescription,
+                Cost = ingredient.Cost,
+                Weight = ingredient.Weight
+            };
+
             if (ModelState.IsValid)
             {
-
-                db.Entry(ingredient).State = EntityState.Modified;
+                db.Entry(item).State = EntityState.Modified;
                 db.SaveChanges();
 
             }
-            // ViewBag.RoleID = new SelectList(db.Ingredient, "", "Title", user.RoleID);
         }
 
-        [System.Web.Http.HttpPost]
-        public void Delete(int id)
+       
+
+
+        /*
+        // POST: Categories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            Ingredient ingredient = db.Ingredient.Find(id);
-            db.Ingredient.Remove(ingredient);
+            Category category = db.Category.Find(id);
+            db.Category.Remove(category);
             db.SaveChanges();
-        }
+            return RedirectToAction("Index");
+        }*/
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -126,5 +213,7 @@ namespace MemberRMS.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

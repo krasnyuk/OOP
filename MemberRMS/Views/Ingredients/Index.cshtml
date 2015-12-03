@@ -14,9 +14,7 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="../../Scripts/css/trirand/ui.jqgrid-bootstrap.css?r=591" />
 <script>
-    $.jgrid.defaults.width = 1280;
-    $.jgrid.defaults.height = 500;
-    $.jgrid.defaults.responsive = false;
+    $.jgrid.defaults.responsive = true;
     $.jgrid.defaults.styleUI = 'Bootstrap';
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -24,8 +22,12 @@
 <table id="jqg"></table>
 <div id="jpager"></div>
 
+
+
 <script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
+
+
             $("#jqg").jqGrid({
                 url: '@Url.Action("IngredientJsonResultData", "Ingredients")',
                 datatype: "json",
@@ -33,21 +35,40 @@
                 colModel: [
                     { name: 'IngredientID', index: 'IngredientID', width: 40, sorttype: "int", editable: true, edittype: 'text', key: true },
                     { name: 'Title', index: 'Title', editable: true, edittype: 'text', width: 70 },
-                    { name: 'LongDescription', index: 'LongDescription', editable: true, edittype: 'text', width: 70 },
+                    { name: 'LongDescription', index: 'LongDescription', editable: true, edittype: 'textarea', width: 70 },
                     { name: 'Cost', index: 'Cost', editable: true, edittype: 'text', width: 50 },
                     { name: 'Weight', index: 'Weight', editable: true, edittype: 'text', width: 70 },
-                    { name: 'CategoryName', index: 'CategoryName', editable: true, edittype: 'text', width: 70 }
+                    { name: 'CategoryName', index: 'CategoryName', editable: true, edittype: "select",editoptions: {
+                        value: "0:default"// как то спилить
+                    }, width: 70 }
                 ],
                 rowNum: 10,
                 rowList: [10, 20, 30],
                 width: 1000,
                 // height : 300,
                 pager: '#jpager',
+                autowidth: true,
+                height:"100%",
                 loadonce:true,
                 sortname: 'IngredientID',
                 sortorder: "desc",
                 caption: "List Ingredient"
             });
+        function listCategories() {
+            //alert("Test");
+            $.getJSON("/Ingredients/CategoriesData", null, function (data) {
+                var div = $('#CategoryName');
+                var str = "";
+
+                $.each(data, function (i, item) {
+                    //  str += item.CategoryID + ":" + item.Title + ";";
+                    div.append("<option value='" + item.CategoryID + "'>" + item.Title + "</option>");
+                });
+               // alert(str);
+
+            });
+
+            };
 
             function update(act) {
 
@@ -58,16 +79,28 @@
                     closeAfterEdit: true, // закрыть после редактирования
                     reloadAfterSubmit: true, // обновление
                     drag: true,
+                    afterShowForm: listCategories,
+
                     onclickSubmit: function (params) {
 
                         var list = $("#jqg");
                         var selectedRow = list.getGridParam("selrow");
+                        //
+                            console.log(selectedRow);
                         rowData = list.getRowData(selectedRow);
+                            var array = $.map(rowData, function (value, index) {
+                                return [value];
+                            });
+                            console.log(array);
+                            console.log(rowData);
+                            selectedRow = array[0];
+                            console.log(selectedRow);
+                        //////
                         if (act === "add")
                             params.url= '@Url.Action("Create")';
-                        else if (act === "del")
+                        else if (act === "del") {
                             params.url = '@Url.Action("Delete")';
-                        else if (act === "edit")
+                        } else if (act === "edit")
                             params.url = '@Url.Action("Edit")';
                     },
                     afterSubmit: function (response, postdata) {
@@ -77,6 +110,7 @@
                     }
                 };
             }
+        // This function gets called whenever an edit dialog is opened
 
             $("#jqg").jqGrid('navGrid', '#jpager', {
 
@@ -93,11 +127,82 @@
                     addtext: "",
                     edittext: "",
                     deltext: ""
+            },
+            // options for the Edit Dialog
+                {
+                    editCaption: "The Edit Dialog",
+                    recreateForm: true,
+                    viewPagerButtons: false,
+                    closeAfterAdd: true, // закрыть после добавления
+                    width: 400,
+                    closeAfterEdit: true, // закрыть после редактирования
+                    reloadAfterSubmit: true, // обновление
+                    drag: true,
+                    afterShowForm: listCategories,
+                    onclickSubmit: function (params) {
+                        var list = $("#jqg");
+                        var selectedRow = list.getGridParam("selrow");
+                        rowData = list.getRowData(selectedRow);
+                        params.url = '@Url.Action("Edit")';
+                    },
+                    afterSubmit: function (response, postdata) {
+                        // обновление грида
+                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
+                        return [true, "", 0];
+                    }
+                    ,
+                    errorTextFormat: function (data) {
+                        return 'Error: ' + data.responseText
+                    }
                 },
-                update("edit"), // обновление
-                update("add"), // добавление
-                update("del") // удаление
-            );;
+                // options for the Add Dialog
+                {
+                    editCaption: "The Edit Dialog",
+                    recreateForm: true,
+                    viewPagerButtons: false,
+                    closeAfterAdd: true, // закрыть после добавления
+                    width: 400,
+                    closeAfterEdit: true, // закрыть после редактирования
+                    reloadAfterSubmit: true, // обновление
+                    drag: true,
+                    afterShowForm: listCategories,
+                    onclickSubmit: function (params) {
+                        var list = $("#jqg");
+                        var selectedRow = list.getGridParam("selrow");
+                        rowData = list.getRowData(selectedRow);
+                        params.url = '@Url.Action("Create")';
+                    },
+                    afterSubmit: function (response, postdata) {
+                        // обновление грида
+                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
+                        return [true, "", 0];
+                    }
+                    ,
+                    errorTextFormat: function (data) {
+                        return 'Error: ' + data.responseText;
+                    }
+                },
+                // options for the Delete Dailog
+               {
+                   url :'@Url.Action("Delete")',
+                   mtype: "POST",
+                   reloadAfterSubmit: true,
+                   serializeDelData: function (postdata) {
+                       var selectedrowindex = jQuery("#jqg").jqGrid('getGridParam', 'selrow');
+                       var dataFromCellByColumnIndex = jQuery('#jqg').jqGrid('getCell', selectedrowindex, 0);
+                       console.log(selectedrowindex);
+                       console.log(dataFromCellByColumnIndex);
+                       postdata.id = dataFromCellByColumnIndex;
+                       return {id: postdata.id}
+                   },
+
+                   afterSubmit: function (response, postdata) {
+                       // обновление грида
+                       $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
+                       return [true, "", 0];
+                   }
+               });
+ 
         });
 </script>
 
