@@ -13,7 +13,7 @@ namespace MemberRMS.Controllers
 {
     public class IngredientsController : Controller
     {
-        private RecipeManagmentSystemEntities db = new RecipeManagmentSystemEntities();
+        private DB_9DFA0A_RMSEntities db = new DB_9DFA0A_RMSEntities();
         // GET: Ingredients
         public ActionResult Index() 
         {
@@ -128,7 +128,7 @@ namespace MemberRMS.Controllers
         }
         public static IEnumerable<IngredientsViewModel> GetIngredients(String sidx, String sord)
         {
-            using (var db = new RecipeManagmentSystemEntities())
+            using (var db = new DB_9DFA0A_RMSEntities())
             {
                 String orderBytext = String.Format("it.{0} {1}", sidx, sord);
                 var result = (from p in db.Ingredient.OrderBy(x => x.Title)
