@@ -575,7 +575,7 @@
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="DB_9DFA0A_RMSEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RecipeManagmentSystemEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cart" EntityType="Self.Cart" />
           <EntitySet Name="CartDetails" EntityType="Self.CartDetails" />
           <EntitySet Name="Category" EntityType="Self.Category" />
@@ -635,7 +635,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DB_9DFA0A_RMSModelStoreContainer" CdmEntityContainer="DB_9DFA0A_RMSEntities">
+        <EntityContainerMapping StorageEntityContainer="DB_9DFA0A_RMSModelStoreContainer" CdmEntityContainer="RecipeManagmentSystemEntities">
           <EntitySetMapping Name="Cart">
             <EntityTypeMapping TypeName="DB_9DFA0A_RMSModel.Cart">
               <MappingFragment StoreEntitySet="Cart">

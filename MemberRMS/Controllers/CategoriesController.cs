@@ -10,7 +10,7 @@ namespace MemberRMS.Controllers
 {
     public class CategoriesController : Controller
     {
-        public DB_9DFA0A_RMSEntities db = new DB_9DFA0A_RMSEntities();
+        public RecipeManagmentSystemEntities db = new RecipeManagmentSystemEntities();
         private readonly CategoriesRepository _categoriesRepository;
 
         public CategoriesController()
@@ -69,7 +69,7 @@ namespace MemberRMS.Controllers
         public static IEnumerable<CategoriesViewModel> GetCategories(String sidx, String sord)
         {
 
-            using (var db = new DB_9DFA0A_RMSEntities())
+            using (var db = new RecipeManagmentSystemEntities())
             {
                 String orderBytext = string.Format("it.{0} {1}", sidx, sord);
                 var result = (from p in db.Category.OrderBy(x => x.CategoryID)
