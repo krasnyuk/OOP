@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MemberRMS.Ingredient>
+﻿@model IEnumerable<MemberRMS.User>
 
 @{
     ViewBag.Title = "Index";
@@ -10,11 +10,18 @@
 <script type="text/ecmascript" src="../../Scripts/js/trirand/i18n/grid.locale-en.js"></script>
 <!-- This is the Javascript file of jqGrid -->
 <script type="text/ecmascript" src="../../Scripts/js/trirand/jquery.jqGrid.min.js"></script>
-<!-- A link to a Boostrap  and jqGrid Bootstrap CSS siles-->
+<!-- A link to a Boostrap and jqGrid Bootstrap CSS siles-->
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/User/bootstrap-datepicker.js"></script>
+<script src="~/Scripts/User/bootstrap3-typeahead.js"></script>
+<link href="~/Scripts/User/bootstrap-datepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen" href="../../Scripts/css/trirand/ui.jqgrid-bootstrap.css?r=591" />
 <script>
-    $.jgrid.defaults.responsive = true;
+    $.jgrid.defaults.width = 1280;
+    $.jgrid.defaults.height = 500;
+    $.jgrid.defaults.responsive = false;
     $.jgrid.defaults.styleUI = 'Bootstrap';
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -22,27 +29,50 @@
 <table id="jqg"></table>
 <div id="jpager"></div>
 
-
-
 <script type="text/javascript">
-    $(document).ready(function () {
-
-
-            $("#jqg").jqGrid({
-                url: '@Url.Action("IngredientJsonResultData", "Ingredients")',
-                datatype: "json",
-                colNames: ['I_ID', 'Title', 'LongDescription', 'Cost', 'Weight', 'CategoryName'],
-                colModel: [
-                    { name: 'IngredientID', index: 'IngredientID', width: 40, sorttype: "int", editable: true, edittype: 'text', key: true },
-                    { name: 'Title', index: 'Title', editable: true, edittype: 'text', width: 70 },
-                    { name: 'LongDescription', index: 'LongDescription', editable: true, edittype: 'textarea', width: 70 },
-                    { name: 'Cost', index: 'Cost', editable: true, edittype: 'text', width: 50 },
-                    { name: 'Weight', index: 'Weight', editable: true, edittype: 'text', width: 70 },
-                    { name: 'CategoryName', index: 'CategoryName', editable: true, edittype: "select",editoptions: {
-                        value: "0:default"// как то спилить
-                    }, width: 70 }
-                ],
-                rowNum: 10,
+$(document).ready(function () {
+    $("#jqg").jqGrid({
+        url: '@Url.Action("UsersData","Users")',
+        datatype: "json",
+        colNames: ['UserID', 'FirstName', 'LastName', 'Gender', 'Telephone', 'Mail', 'Birthday'],
+        colModel: [
+            { name: 'UserID', index: 'UserID', width: 40, sorttype: "int", editable: true, edittype: 'text', key: true },
+            { name: 'FirstName', index: 'FirstName', editable: true, edittype: 'text', width: 70 },
+            { name: 'LastName', index: 'LastName', editable: true, edittype: 'text', width: 50 },
+            { name: 'Gender', index: 'Gender', editable: true, edittype: 'text', width: 70 },
+            {
+                name: 'Telephone', index: 'Telephone', editable: true, edittype: 'text', width: 70,
+                editrules: {
+                    number: true,
+                    minValue: 5,
+                    maxValue: 100000000000000000000,
+                    required: true
+                }
+            },
+            {
+                name: 'Mail', index: 'Mail', editable: true, edittype: 'text', width: 80,
+                
+            },
+            {
+                name: 'Birthday',
+                index: 'Birthday',
+                editable: true,
+                edittype: 'text',
+                width: 80,
+                editoptions: {
+                    // dataInit is the client-side event that fires upon initializing the toolbar search field for a column
+                    // use it to place a third party control to customize the toolbar
+                    dataInit: function(element) {
+                        $(element).datepicker({
+                            autoclose: true,
+                            format: 'yyyy-mm-dd',
+                            orientation: 'bottom'
+                        });
+                    }
+                }
+            }
+        ],
+            rowNum: 100,
                 rowList: [10, 20, 30],
                 width: 1000,
                 // height : 300,
@@ -50,19 +80,19 @@
                 autowidth: true,
                 height:"100%",
                 loadonce:true,
-                sortname: 'IngredientID',
+                sortname: 'UserID',
                 sortorder: "desc",
-                caption: "List Ingredient"
+                caption: "List User"
             });
-        function listCategories() {
+        function listUser() {
             //alert("Test");
-            $.getJSON("/Ingredients/CategoriesData", null, function (data) {
-                var div = $('#CategoryName');
+            $.getJSON("/User/UserData", null, function (data) {
+                var div = $('#Birthday');
                 var str = "";
 
                 $.each(data, function (i, item) {
                     //  str += item.CategoryID + ":" + item.Title + ";";
-                    div.append("<option value='" + item.CategoryID + "'>" + item.Title + "</option>");
+                    div.append("<option value='" + item.UserID + "'>" + item.Title + "</option>");
                 });
                // alert(str);
 
@@ -70,7 +100,7 @@
 
             };
 
-            function update(act) {
+            @*function update(act) {
 
                 return {
                     closeAfterAdd: true, // закрыть после добавления
@@ -79,7 +109,7 @@
                     closeAfterEdit: true, // закрыть после редактирования
                     reloadAfterSubmit: true, // обновление
                     drag: true,
-                    afterShowForm: listCategories,
+                    afterShowForm: listUser,
 
                     onclickSubmit: function (params) {
 
@@ -109,7 +139,7 @@
                         return [true, "", 0];
                     }
                 };
-            }
+            }*@
         // This function gets called whenever an edit dialog is opened
 
             $("#jqg").jqGrid('navGrid', '#jpager', {
@@ -138,7 +168,7 @@
                     closeAfterEdit: true, // закрыть после редактирования
                     reloadAfterSubmit: true, // обновление
                     drag: true,
-                    afterShowForm: listCategories,
+                    afterShowForm: listUser,
                     onclickSubmit: function (params) {
                         var list = $("#jqg");
                         var selectedRow = list.getGridParam("selrow");
@@ -157,7 +187,7 @@
                 },
                 // options for the Add Dialog
                 {
-                    editCaption: "The Edit Dialog",
+                    editCaption: "The Create Dialog",
                     recreateForm: true,
                     viewPagerButtons: false,
                     closeAfterAdd: true, // закрыть после добавления
@@ -165,11 +195,11 @@
                     closeAfterEdit: true, // закрыть после редактирования
                     reloadAfterSubmit: true, // обновление
                     drag: true,
-                    afterShowForm: listCategories,
+                    afterShowForm: listUser,
                     onclickSubmit: function (params) {
                         var list = $("#jqg");
-                        var selectedRow = list.getGridParam("selrow");
-                        rowData = list.getRowData(selectedRow);
+                       var selectedRow = list.getGridParam("selrow");
+                       rowData = list.getRowData(selectedRow);
                         params.url = '@Url.Action("Create")';
                     },
                     afterSubmit: function (response, postdata) {
@@ -184,7 +214,13 @@
                 },
                 // options for the Delete Dailog
                {
-                   url :'@Url.Action("Delete")',
+                   editCaption: "The Create Dialog",
+                   recreateForm: true,
+                   viewPagerButtons: false,
+                   closeAfterAdd: true, // закрыть после добавления
+                   width: 400,
+                   closeAfterEdit: true, // закрыть после редактирования
+                // обновление   url :'@Url.Action("Delete")',
                    mtype: "POST",
                    reloadAfterSubmit: true,
                    serializeDelData: function (postdata) {
@@ -192,17 +228,21 @@
                        var dataFromCellByColumnIndex = jQuery('#jqg').jqGrid('getCell', selectedrowindex, 0);
                        console.log(selectedrowindex);
                        console.log(dataFromCellByColumnIndex);
-                       postdata.id = dataFromCellByColumnIndex;
+                      postdata.id = dataFromCellByColumnIndex;
                        return {id: postdata.id}
                    },
 
-                   afterSubmit: function (response, postdata) {
+                  afterSubmit: function (response, postdata) {
                        // обновление грида
                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
                        return [true, "", 0];
                    }
                });
- 
+    function validatePositive(value, column) {
+        if (isNaN(value) && value < 0)
+            return [false, "Please enter a positive value or correct value"];
+        else
+            return [true, ""];
+    }
         });
 </script>
-

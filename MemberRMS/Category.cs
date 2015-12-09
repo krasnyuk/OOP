@@ -19,14 +19,7 @@ namespace MemberRMS
         {
             this.Ingredient = new HashSet<Ingredient>();
         }
-
-        public Category(int CategoryID, string Title, int? ParentCategoryID)
-        {
-            this.CategoryID = CategoryID;
-            this.Title = Title;
-            this.ParentCategoryID = ParentCategoryID;
-            this.Ingredient = new HashSet<Ingredient>();
-        }
+    
         public int CategoryID { get; set; }
         public string Title { get; set; }
         public Nullable<int> ParentCategoryID { get; set; }

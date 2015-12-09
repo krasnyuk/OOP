@@ -29,7 +29,6 @@ namespace MemberRMS
         public string Telephone { get; set; }
         public string Mail { get; set; }
         public string Gender { get; set; }
-        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Cart { get; set; }
