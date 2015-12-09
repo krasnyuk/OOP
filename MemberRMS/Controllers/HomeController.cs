@@ -8,7 +8,7 @@ namespace MemberRMS.Controllers
 {
     public class HomeController : Controller
     {
-        
+        [Authorize]
         public ActionResult Index()
         {
             return View();
@@ -20,7 +20,7 @@ namespace MemberRMS.Controllers
 
             return View();
         }
-
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

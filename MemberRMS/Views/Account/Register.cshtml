@@ -6,8 +6,8 @@
     {
         new SelectListItem()
         {
-            Text = "Visitor",
-            Value = "Visitor"
+            Text = "Administrator",
+            Value = "Administrator"
         }
     };
     List<SelectListItem> gender = new List<SelectListItem>
@@ -46,9 +46,8 @@
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
 
-        @Html.LabelFor(m => m.Gender, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Gender, new { @class = "form-control" })
         @Html.DropDownList("role", roles, "select a role")
+        @*@Html.DropDownList("gender", gender, "Select gender")*@
         <button class="btn btn-primary">Create</button>
     }
 </div>

@@ -64,7 +64,8 @@ namespace MemberRMS.Controllers
                             Gender = regdata.Gender
                         });
                     Roles.AddUserToRole(regdata.Username, role);
-                   
+                    
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException)

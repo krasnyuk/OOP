@@ -31,9 +31,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Recipe Managment System : Admin Panel</a>
-            </div>
+                <a class="navbar-brand">Recipe Managment System : Admin Panel</a>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                                <li>
+                                    <strong style="color: white">@User.Identity.Name</strong>
+                                    @{
+                                        if (Roles.GetRolesForUser().Length > 0)
+                                        {
+                                            <strong style="color: white">@Roles.GetRolesForUser()[0]</strong>
+                                        }
 
+                                    }
+                                </li>
+                                        }
+                                        else
+                                        {
+                                            <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                                            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                                        }
+                        }
+                    </ul>
+                </div>
+            </div>
 
         </nav>
         <!--/. NAV TOP  -->
