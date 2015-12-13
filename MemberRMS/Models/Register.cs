@@ -32,6 +32,7 @@ namespace MemberRMS.Models
         [Required(ErrorMessage = "You must enter a last name")]
         [Display(Name = "Last name*")]
         public string LastName { get; set; }
+        [DataType(DataType.DateTime)]
         [Display(Name = "Date of Birth")]
         public string Birthday { get; set; }
         [Display(Name = "Phone")]
@@ -39,6 +40,7 @@ namespace MemberRMS.Models
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
+       
 
     }
 }

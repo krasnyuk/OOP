@@ -38,13 +38,29 @@
         @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
         @Html.LabelFor(m => m.Birthday, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control ", role = "datepicker", type = "date" })
+        @Scripts.Render("~/bundles/jquery")
+        <script type="text/javascript">
+            $(function() {
+                alert("test");
+
+                $('#Birthday').datetimepicker({
+                    format: 'L',
+                    showClose: true,
+                    showClear: true,
+                    toolbarPlacement: 'top'
+                });
+            });
+
+        </script>
         @Html.LabelFor(m => m.Telephone, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control" })
         @Html.LabelFor(m => m.Password, new { @class = "control-label" })
         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+       
+
 
         @Html.DropDownList("role", roles, "select a role")
         @*@Html.DropDownList("gender", gender, "Select gender")*@
