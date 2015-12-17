@@ -37,10 +37,9 @@ namespace MemberRMS.Models
         public string Birthday { get; set; }
         [Display(Name = "Phone")]
         public string Telephone { get; set; }
-        [Display(Name = "Gender")]
-        public string Gender { get; set; }
-
        
+
+
 
     }
 }

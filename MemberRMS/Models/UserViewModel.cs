@@ -15,6 +15,6 @@ namespace MemberRMS.Models
         public DateTime? Birthday { get; set; }
         public string Telephone { get; set; }
         public string Mail { get; set; }
-        public string Gender { get; set; }
+     
     }
 }

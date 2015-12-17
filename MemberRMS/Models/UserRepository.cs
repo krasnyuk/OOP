@@ -30,7 +30,7 @@ namespace MemberRMS.Models
                                   UserID = p.UserID,
                                   FirstName = p.FirstName,
                                   LastName = p.LastName,
-                                  //RoleID = p.RoleID,
+                              
                                   Birthday = p.Birthday,
                                   Telephone = p.Telephone,
                                   Mail = p.Mail

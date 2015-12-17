@@ -34,12 +34,12 @@ $(document).ready(function () {
     $("#jqg").jqGrid({
         url: '@Url.Action("UsersData","Users")',
         datatype: "json",
-        colNames: ['UserID', 'FirstName', 'LastName', 'Gender', 'Telephone', 'Mail', 'Birthday'],
+        colNames: ['UserID', 'FirstName', 'LastName', 'Telephone', 'Mail', 'Birthday'],
         colModel: [
             { name: 'UserID', index: 'UserID', width: 40, sorttype: "int", editable: true, edittype: 'text', key: true },
             { name: 'FirstName', index: 'FirstName', editable: true, edittype: 'text', width: 70 },
             { name: 'LastName', index: 'LastName', editable: true, edittype: 'text', width: 50 },
-            { name: 'Gender', index: 'Gender', editable: true, edittype: 'text', width: 70 },
+           
             {
                 name: 'Telephone', index: 'Telephone', editable: true, edittype: 'text', width: 70,
                 editrules: {

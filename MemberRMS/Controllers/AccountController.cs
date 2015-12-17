@@ -57,11 +57,7 @@ namespace MemberRMS.Controllers
                     WebSecurity.CreateUserAndAccount(regdata.Username, regdata.Password,
                         propertyValues: new
                         {
-                            FirstName = regdata.FirstName,
-                            LastName = regdata.LastName,
-                            Birthday = regdata.Birthday,
-                            Telephone = regdata.Telephone,
-                            Gender = regdata.Gender
+                            regdata.FirstName, regdata.LastName, regdata.Birthday, regdata.Telephone                           
                         });
                     Roles.AddUserToRole(regdata.Username, role);
                     

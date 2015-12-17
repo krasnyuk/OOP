@@ -82,7 +82,7 @@ namespace MemberRMS.Controllers
                                   FirstName = p.FirstName,
                                   LastName = p.LastName,
                                   Birthday = p.Birthday,
-                                  Gender = p.Gender,
+                                  
                                   Telephone = p.Telephone,
                                   Mail = p.Mail
 
@@ -115,7 +115,7 @@ namespace MemberRMS.Controllers
                             p.UserID.ToString(),
                             p.FirstName,
                             p.LastName,
-                            p.Gender,
+                            
                             p.Telephone,
                             p.Mail,
                             p.Birthday.ToString(),
@@ -143,11 +143,10 @@ namespace MemberRMS.Controllers
 
                 User item = new User
                 {
-                    // UserID',  'FirsName', 'LastName', 'Gender', 'Telephone', 'Mail', 'Birthday'
                     UserID = user.UserID,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Gender = user.Gender,
+                    
                     Telephone = user.Telephone,
                     Mail = user.Mail,
                     Birthday = user.Birthday,
@@ -170,7 +169,7 @@ namespace MemberRMS.Controllers
                     UserID = user.UserID,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    Gender = user.Gender,
+                    
                     Telephone = user.Telephone,
                     Mail = user.Mail,
                     Birthday = user.Birthday,

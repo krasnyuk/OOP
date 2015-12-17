@@ -28,7 +28,7 @@ namespace MemberRMS
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Telephone { get; set; }
         public string Mail { get; set; }
-        public string Gender { get; set; }
+       
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Cart { get; set; }
