@@ -72,7 +72,7 @@
           <Key>
             <PropertyRef Name="ProductIngredientID" />
           </Key>
-          <Property Name="ProductIngredientID" Type="int" Nullable="false" />
+          <Property Name="ProductIngredientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IngredientID" Type="int" />
           <Property Name="ProductID" Type="int" />
         </EntityType>
@@ -91,12 +91,11 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="nchar" MaxLength="50" />
           <Property Name="Birthday" Type="date" />
           <Property Name="Telephone" Type="nchar" MaxLength="15" />
-          <Property Name="Mail" Type="nchar" MaxLength="100" />
-          <Property Name="Gender" Type="nchar" MaxLength="10" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -139,7 +138,9 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Cart_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -151,7 +152,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CartDetails_Cart">
-          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CartDetails" Type="Self.CartDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cart">
@@ -187,7 +190,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -199,7 +204,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderDetails_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
@@ -243,18 +250,6 @@
             </Principal>
             <Dependent Role="webpages_UsersInRoles">
               <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_UserId">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="webpages_UsersInRoles">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -307,10 +302,6 @@
           </AssociationSet>
           <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
-          </AssociationSet>
-          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
-            <End Role="User" EntitySet="User" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
         </EntityContainer>
@@ -420,12 +411,11 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Birthday" Type="DateTime" Precision="0" />
           <Property Name="Telephone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="Mail" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_User" FromRole="User" ToRole="Cart" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="User" ToRole="webpages_Roles" />
@@ -735,7 +725,6 @@
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
