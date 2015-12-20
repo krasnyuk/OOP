@@ -10,37 +10,42 @@ namespace MemberRMS.Controllers
 {
     public class CategoriesController : Controller
     {
+        //сущность БД
         public RecipeManagmentSystemEntities db = new RecipeManagmentSystemEntities();
-        private readonly CategoriesRepository _categoriesRepository;
+        private readonly CategoriesRepository _categoriesRepository; 
 
         public CategoriesController()
         {
             _categoriesRepository = new CategoriesRepository(this);
         }
 
-
+        //переименование категории
         [HttpPost]
-        public ActionResult Rename(/*[Bind(Include = "CategoryID,Title,ParentCategoryID")]*/Category node)
+        public ActionResult Rename(Category node)
         {
-            var a = node.ParentCategoryID;
             _categoriesRepository.SetNameById(node.CategoryID, node.Title);
             return null;
         }
 
+        //удаление категории, проверка ошибок
         [HttpPost]
-        public ActionResult Remove(Category node)
+        public JsonResult Remove(Category node)
         {
+            if (db.Ingredient.Any(x => x.CategoryID == node.CategoryID)) //если данная категория используется в ингридиентах
+            {
+                return Json(new { State = "Error! This category is already used." }, JsonRequestBehavior.AllowGet);
+            }
             _categoriesRepository.RemoveById(node.CategoryID);
             return null;
         }
-
+        //перетаскивание ноды
         [HttpPost]
         public ActionResult MoveNode(Category node)
         {
             _categoriesRepository.Move(node);
             return null;
         }
-
+        //добавление категории
         [HttpPost]
         public JsonResult AddNode(Category node)
         {
@@ -48,7 +53,7 @@ namespace MemberRMS.Controllers
             var id = _categoriesRepository.GetIdBy(node);
             return Json(id, JsonRequestBehavior.AllowGet);
         }
-
+        //получение дочерних категорий
         [HttpPost]
         public JsonResult GetChildren(int id)
         {
@@ -63,15 +68,11 @@ namespace MemberRMS.Controllers
             
             return View(nodes);
         }
-
-       
-
+        //получение категорий из БД
         public static IEnumerable<CategoriesViewModel> GetCategories(String sidx, String sord)
         {
-
             using (var db = new RecipeManagmentSystemEntities())
             {
-                String orderBytext = string.Format("it.{0} {1}", sidx, sord);
                 var result = (from p in db.Category.OrderBy(x => x.CategoryID)
                               select new CategoriesViewModel
                               {
@@ -82,7 +83,7 @@ namespace MemberRMS.Controllers
                 return result;
             }
         }
-
+        //Отправление категорий в формате json
         public JsonResult CategoriesData(string sidx, string sord, int page, int rows)
         {
 
@@ -102,7 +103,6 @@ namespace MemberRMS.Controllers
                     {
                         i = p.CategoryID.ToString(),
                         cell = new[] {
-                            
                             p.CategoryID.ToString(),
                             p.ParentCategoryID.ToString(),
                             p.Title
@@ -128,15 +128,7 @@ namespace MemberRMS.Controllers
             }
             return RedirectToAction("Index");
         }
-        //[HttpPost]
-        //public ActionResult _CategoriesPartial1(Category category)
-        //{
-        //    var a = category;
-        //    return PartialView();
-        //}
-
-        // GET: Categories/Details/5
-      
+        //POST: Index
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "CategoryID,Title,ParentCategoryID")] Category category)
@@ -151,10 +143,6 @@ namespace MemberRMS.Controllers
             return View();
         }
 
-       
-
-
-
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -165,7 +153,7 @@ namespace MemberRMS.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        //очистка
         protected override void Dispose(bool disposing)
         {
             if (disposing)

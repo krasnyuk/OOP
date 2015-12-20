@@ -658,7 +658,6 @@
     <Content Include="Views\Shared\_dashboard.cshtml" />
     <Content Include="Views\Ingredients\Index.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\Categories\_CategoriesPartial1.cshtml" />
     <Content Include="Views\Ingredients\addPartitial.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>

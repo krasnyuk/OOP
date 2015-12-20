@@ -5,11 +5,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_dashboard.cshtml";
 }
-
+@*Подключение скриптов*@
     <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" type="text/css"/>
     <script src="@Url.Content("~/Scripts/jquery.jstree.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/script.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/script.js")" type="text/javascript"></script>
 
+@* Функции *@
     @functions
 {
         private string _str = "";
@@ -31,17 +32,14 @@
             return _str;
         }
     }
-
+@* Слой меню с кнопками *@
 <div id="menu">
     <input id="add_folder" class="btn btn-success" data-target=".bootstrapmodal" type="button" value="Add subcategory"/>
     <input id="rename" class="btn btn-primary" data-target=".bootstrapmodal" type="button" value="Rename category"/>
     <input id="remove" class="btn btn-danger " data-target=".bootstrapmodal" type="button" value="Remove category"/>
-    <a class="btn btn-success" data-toggle="modal" data-target=".bootstrapmodal"> <span class="glyphicon glyphicon-check"> </span> Add New Category </a>
 </div>
 
-
-
-
+@* Слой дерева *@
 
     <div id="tree">
             <ul>
