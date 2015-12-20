@@ -39,7 +39,14 @@ $(document).ready(function () {
             { name: 'UserID', index: 'UserID', width: 40, sorttype: "int", editable: true, edittype: 'text', key: true },
             { name: 'FirstName', index: 'FirstName', editable: true, edittype: 'text', width: 70 },
             { name: 'LastName', index: 'LastName', editable: true, edittype: 'text', width: 50 },
-           
+            //{
+            //    name: 'Gender', index: 'Gender', width: 40,
+            //    editable: true,
+            //    edittype: "select",
+            //    editoptions: {
+            //        value: "Famale:Famale;Male:Male"
+            //    }
+            //},
             {
                 name: 'Telephone', index: 'Telephone', editable: true, edittype: 'text', width: 70,
                 editrules: {
@@ -50,8 +57,8 @@ $(document).ready(function () {
                 }
             },
             {
-                name: 'Mail', index: 'Mail', editable: true, edittype: 'text', width: 80,
-                
+                name: 'Mail', index: 'Mail', editable: true, editoptions: { maxlength: 80, size:5 }, editrules: { email: true}, width: 80
+
             },
             {
                 name: 'Birthday',
@@ -59,13 +66,13 @@ $(document).ready(function () {
                 editable: true,
                 edittype: 'text',
                 width: 80,
+                formatter: 'date',
+                formatoptions: { newformat: 'd-m-Y'},
+                searchoptions:{sopt:['eq']},
                 editoptions: {
-                    // dataInit is the client-side event that fires upon initializing the toolbar search field for a column
-                    // use it to place a third party control to customize the toolbar
                     dataInit: function(element) {
                         $(element).datepicker({
                             autoclose: true,
-                            format: 'yyyy-mm-dd',
                             orientation: 'bottom'
                         });
                     }
@@ -85,62 +92,19 @@ $(document).ready(function () {
                 caption: "List User"
             });
         function listUser() {
-            //alert("Test");
             $.getJSON("/User/UserData", null, function (data) {
                 var div = $('#Birthday');
                 var str = "";
-
                 $.each(data, function (i, item) {
-                    //  str += item.CategoryID + ":" + item.Title + ";";
                     div.append("<option value='" + item.UserID + "'>" + item.Title + "</option>");
                 });
-               // alert(str);
+
 
             });
 
             };
 
-            @*function update(act) {
 
-                return {
-                    closeAfterAdd: true, // закрыть после добавления
-
-                    width: 400,
-                    closeAfterEdit: true, // закрыть после редактирования
-                    reloadAfterSubmit: true, // обновление
-                    drag: true,
-                    afterShowForm: listUser,
-
-                    onclickSubmit: function (params) {
-
-                        var list = $("#jqg");
-                        var selectedRow = list.getGridParam("selrow");
-                        //
-                            console.log(selectedRow);
-                        rowData = list.getRowData(selectedRow);
-                            var array = $.map(rowData, function (value, index) {
-                                return [value];
-                            });
-                            console.log(array);
-                            console.log(rowData);
-                            selectedRow = array[0];
-                            console.log(selectedRow);
-                        //////
-                        if (act === "add")
-                            params.url= '@Url.Action("Create")';
-                        else if (act === "del") {
-                            params.url = '@Url.Action("Delete")';
-                        } else if (act === "edit")
-                            params.url = '@Url.Action("Edit")';
-                    },
-                    afterSubmit: function (response, postdata) {
-                        // обновление грида
-                        $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid');
-                        return [true, "", 0];
-                    }
-                };
-            }*@
-        // This function gets called whenever an edit dialog is opened
 
             $("#jqg").jqGrid('navGrid', '#jpager', {
 
@@ -187,6 +151,7 @@ $(document).ready(function () {
                 },
                 // options for the Add Dialog
                 {
+
                     editCaption: "The Create Dialog",
                     recreateForm: true,
                     viewPagerButtons: false,
@@ -197,6 +162,7 @@ $(document).ready(function () {
                     drag: true,
                     afterShowForm: listUser,
                     onclickSubmit: function (params) {
+
                         var list = $("#jqg");
                        var selectedRow = list.getGridParam("selrow");
                        rowData = list.getRowData(selectedRow);
@@ -220,7 +186,7 @@ $(document).ready(function () {
                    closeAfterAdd: true, // закрыть после добавления
                    width: 400,
                    closeAfterEdit: true, // закрыть после редактирования
-                // обновление   url :'@Url.Action("Delete")',
+                   url :'@Url.Action("Delete")',
                    mtype: "POST",
                    reloadAfterSubmit: true,
                    serializeDelData: function (postdata) {
@@ -238,6 +204,7 @@ $(document).ready(function () {
                        return [true, "", 0];
                    }
                });
+
     function validatePositive(value, column) {
         if (isNaN(value) && value < 0)
             return [false, "Please enter a positive value or correct value"];
