@@ -27,9 +27,14 @@ namespace MemberRMS.Controllers
             return null;
         }
 
+
         [HttpPost]
-        public ActionResult Remove(Category node)
+        public JsonResult Remove(Category node)
         {
+            if (db.Ingredient.Any(x => x.CategoryID == node.CategoryID))
+            {
+                return Json(new { State = "Error! This category is already used." }, JsonRequestBehavior.AllowGet);
+            }
             _categoriesRepository.RemoveById(node.CategoryID);
             return null;
         }
