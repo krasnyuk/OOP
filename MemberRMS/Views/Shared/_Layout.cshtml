@@ -1,26 +1,26 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <script src="~/Scripts/jquery-2.0.3.js"></script>
 
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-   
-     <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
 
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
 
 
-    
+
     <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet"/>
     <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet"/>
 
-    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet"/>
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
 
     <link href="~/Content/bootstrap.css" rel="stylesheet"/>
@@ -30,58 +30,70 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datetime")
     @RenderSection("scripts", required: false)
-    
+   
 </head>
+
+
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    <style>
+        .footer {
+            text-align: center;
+        }
+    </style>
 
-                    @{
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
-                            <li><strong style="color: white">@User.Identity.Name</strong>
-                    @{
-                        if (Roles.GetRolesForUser().Length > 0)
-                        {
-                            <strong style="color: white">@Roles.GetRolesForUser()[0]</strong>
-                        }
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white; border-color: white">
+    <div class="container" style="background-color: white; border-color: white">
+        <div class="navbar-header" style="background-color: white; border-color: white">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*@Html.ActionLink("RMS", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})*@
+        </div>
+        <div class="navbar-collapse collapse" style="background-color: white; border-color: white">
+            <ul class="nav navbar-nav" style="float: right">
+                @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li><strong style="color: white">@User.Identity.Name</strong>
+                            @{
+                                if (Roles.GetRolesForUser().Length > 0)
+                                {
+                                    <strong style="color: white">@Roles.GetRolesForUser()[0]</strong>
+                                }
+
+                            }
+
+
+                        </li>
                     }
-
-                            
-                    </li>
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                            <li>@Html.ActionLink("Register", "Register", "Account")</li>
-                        }
+                    else
+                    {
+                        <li><img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/login.png" width="25" height="25" style="margin-top: 12px"/></li>
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li><img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/add_user.png" width="25" height="25" style="margin-top: 12px"/></li>
+                        <li>@Html.ActionLink("Sign up", "Register", "Account")</li>
                     }
-                  
-                </ul>
-            </div>
+                }
+
+            </ul>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Recipe Managment System</p>
-        </footer>
-    </div>
+</div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year - Recipe Managment System</p>
+    </footer>
+</div>
 </body>
 </html>

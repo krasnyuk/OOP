@@ -10,48 +10,70 @@
             Value = "Administrator"
         }
     };
-  
-    };
+
 }
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Log in RMS</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-<h2>Create new User</h2>
-<div>
-    @using (@Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @Html.LabelFor(m => m.Username, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-        @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        @Html.LabelFor(m => m.Birthday, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control ", role = "datepicker", type = "date" })
-        @Scripts.Render("~/bundles/jquery")
-        <script type="text/javascript">
-            $(function() {
-                
-
-                $('#Birthday').datetimepicker({
-                    format: 'L',
-                    showClose: true,
-                    showClear: true,
-                    toolbarPlacement: 'top'
-                });
-            });
-
-        </script>
-        @Html.LabelFor(m => m.Telephone, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control" })
-        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
-        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-       
-
-
-        @Html.DropDownList("role", roles, "select a role")
-        <button class="btn btn-primary">Create</button>
+</head>
+<style>
+    .blackcolor {
+        color: black;
     }
+
+    .btn-color {
+        color: azure;
+        background-color: black;
+        border-color: azure;
+    }
+</style>
+<div class="panel-success" style="width: 300px; text-align: center; margin: auto">
+    <div class="panel-heading text-center">
+        <h4 class="blackcolor">Create new user</h4>
+        <div class="panel-body">
+            @using (@Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                @Html.LabelFor(m => m.Username, new { @class = "control-label blackcolor" })
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label blackcolor" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label blackcolor" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control " })
+                @Html.LabelFor(m => m.Birthday, new { @class = "control-label blackcolor" })
+                @Html.TextBoxFor(m => m.Birthday, new { @class = "form-control ", role = "datepicker", type = "date" })
+                @Scripts.Render("~/bundles/jquery")
+                <script type="text/javascript">
+                $(function() {
+
+
+                    $('#Birthday').datetimepicker({
+                        format: 'L',
+                        showClose: true,
+                        showClear: true,
+                        toolbarPlacement: 'top'
+                    });
+                });
+
+                </script>
+                @Html.LabelFor(m => m.Telephone, new { @class = "control-label blackcolor" })
+                @Html.TextBoxFor(m => m.Telephone, new { @class = "form-control" })
+                @Html.LabelFor(m => m.Password, new { @class = "control-label blackcolor" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label blackcolor" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+
+                <br>
+                @Html.DropDownList("role", roles, "Select a role")
+                <br><br>
+                <button class="btn btn-primary btn-color">Create</button>
+            }
+        </div>
+    </div>
 </div>
+
