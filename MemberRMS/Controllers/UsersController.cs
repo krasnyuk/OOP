@@ -79,12 +79,11 @@ namespace MemberRMS.Controllers
                               select new UserViewModel
                               {
                                   UserID = p.UserID,
-                                  FirstName = p.FirstName,
-                                  LastName = p.LastName,
+                                  FirstName = p.FirstName.Trim(),
+                                  LastName = p.LastName.Trim(),
                                   Birthday = p.Birthday,
-                                  
-                                  Telephone = p.Telephone,
-                                  Mail = p.Mail
+                                  Telephone = p.Telephone.Trim(),
+                                  Mail = p.Mail.Trim()
 
                               }).ToList();
                 return result;
@@ -115,7 +114,6 @@ namespace MemberRMS.Controllers
                             p.UserID.ToString(),
                             p.FirstName,
                             p.LastName,
-                            
                             p.Telephone,
                             p.Mail,
                             p.Birthday.ToString(),
@@ -143,12 +141,12 @@ namespace MemberRMS.Controllers
 
                 User item = new User
                 {
+                    // UserID',  'FirsName', 'LastName', 'Gender', 'Telephone', 'Mail', 'Birthday'
                     UserID = user.UserID,
-                    FirstName = user.FirstName,
+                    FirstName = user.FirstName.Trim(),
                     LastName = user.LastName,
-                    
                     Telephone = user.Telephone,
-                    Mail = user.Mail,
+                    Mail = user.Mail.Trim(),
                     Birthday = user.Birthday,
 
                 };
@@ -164,17 +162,16 @@ namespace MemberRMS.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 User item = new User
                 {
                     UserID = user.UserID,
-                    FirstName = user.FirstName,
+                    FirstName = user.FirstName.Trim(),
                     LastName = user.LastName,
-                    
                     Telephone = user.Telephone,
-                    Mail = user.Mail,
+                    Mail = user.Mail.Trim(),
                     Birthday = user.Birthday,
                 };
-
 
                 _db.Entry(item).State = EntityState.Modified;
                 _db.SaveChanges();
