@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+@*подключение скриптов*@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,18 +31,19 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datetime")
     @RenderSection("scripts", required: false)
-   
+
 </head>
 
 
 
 <body>
-    <style>
-        .footer {
-            text-align: center;
-        }
-    </style>
-
+    @*класс для надписи про проэкт внизу сайта*@
+<style>
+    .footer {
+        text-align: center;
+    }
+</style>
+@*слой страницы*@
 <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: white; border-color: white">
     <div class="container" style="background-color: white; border-color: white">
         <div class="navbar-header" style="background-color: white; border-color: white">
@@ -50,14 +52,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @*@Html.ActionLink("RMS", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})*@
-        </div>
-        <div class="navbar-collapse collapse" style="background-color: white; border-color: white">
-            <ul class="nav navbar-nav" style="float: right">
-                @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
+        </div>
+        @*слой верхнего меню*@
+        <div class="navbar-collapse collapse" style="background-color: white; border-color: white">
+            @*создание списка для отображения элементов меню*@
+            <ul class="nav navbar-nav" style="float: right">
+
+                @*если пользователь авторизировался, отображается кнопка выходы из системы*@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
@@ -70,12 +72,11 @@
                                 }
 
                             }
-
-
                         </li>
-                    }
-                    else
-                    {
+                                }
+                                @*иначе - отображение кнопок регистрации и входа в систему*@
+                else
+                {
                         <li><img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/login.png" width="25" height="25" style="margin-top: 12px"/></li>
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
                         <li><img src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/add_user.png" width="25" height="25" style="margin-top: 12px"/></li>

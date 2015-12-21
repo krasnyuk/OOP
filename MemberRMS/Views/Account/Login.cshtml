@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Login";
 }
+@*подключем таблицы стилей*@
 <head>
     <meta name="viewport" content="width=device-width"/>
     <title>Log in RMS</title>
@@ -10,32 +11,43 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet"/>
 
 </head>
+@*класс для цвета шрифта*@
 <style>
     .blackcolor {
         color: black;
 
     }
+    @*класс для цвета заливки кнопки*@
     .btn-color {
         color: azure;
         background-color: black;
         border-color: azure;
     }
 </style>
+@*слой входа в систему*@
 <div class="panel-success" style="width: 300px; text-align: center; margin: auto">
     <div class="panel-heading text-center">
         <h4 class="blackcolor">Sign in</h4>
+        @*добавление иконки входа в систему*@
         <img src="https://cdn3.iconfinder.com/data/icons/glypho-generic-icons/64/user-man-circle-invert-512.png" width="100" height="100">
         <div class="panel-body">
+            @*создаем надписи и соответсвующие к ним текстовые поля*@
             @using (@Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
                 <label class="blackcolor">Enter username</label>
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Username, new {@class = "form-control"})
                 <label class="blackcolor">Enter password</label>
-                @Html.PasswordFor(m => m.Psssword, new { @class = "form-control" })
+                @Html.PasswordFor(m => m.Psssword, new {@class = "form-control"})
+
                 <br>
-                <button class="btn btn-primary btn-color"  >Log in</button>
+                @*чекбокс для запоминания пользователя*@
+                <label class="blackcolor">Remember Me?</label>
+                @Html.CheckBoxFor(m => m.RememberMe)
+               <br> 
+                @*кнопка входа в систему*@
+                <button class="btn btn-primary btn-color">Log in</button>
                 <p>
                     @Html.ActionLink("Sign up", "Register")
                 </p>
