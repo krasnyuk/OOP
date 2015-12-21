@@ -30,14 +30,23 @@ namespace MemberRMS.Controllers
             return RedirectToAction("Index");
         }
 
-        //[System.Web.Http.HttpPost]
-        //public void Delete(int id)
-        //{
-        //    Ingredient ingredient = db.Ingredient.Find(id);
-        //    db.Ingredient.Remove(ingredient);
-        //    db.SaveChanges();
-        //}
+       
+        public JsonResult IngredientCountJsonResult()
+        {
+            
+          
+            var result = (from p in db.Category.OrderBy(x => x.CategoryID)
+                          select new CategoriesViewModel
+                          {
+                              CategoryID = p.CategoryID,
+                              ParentCategoryID = p.ParentCategoryID,
+                              Title = p.Title
+                          }).ToList();
+            var list = result;
 
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult CategoriesData()
         {
             var result = (from p in db.Category.OrderBy(x => x.CategoryID)
@@ -52,9 +61,70 @@ namespace MemberRMS.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult IngredientsData()
+        {
+            var result = (from p in db.Ingredient.OrderBy(x => x.IngredientID)
+                          select new IngredientsViewModel()
+                          {
+                            IngredientID = p.IngredientID,
+                            Title = p.Title
+                          }).ToList();
+            var list = result;
 
 
-        
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        private int _parentId;
+        public JsonResult SubIngredientsData(int id)
+        {
+            _parentId = id;
+            var result = (from p in db.ProductIngredient
+                          where p.ProductID == _parentId
+                          select new IngredientsViewModel()
+                          {
+                              IngredientID = (int) p.IngredientID,
+                              CategoryID = p.IngredientID
+
+                          }).ToList();
+            var list = result;
+
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ListSubIngredientsData()
+        {
+           
+            var result = (from p in db.ProductIngredient
+                          select new IngredientsViewModel()
+                          {
+                              IngredientID = (int)p.IngredientID,
+                              //CategoryID = p.CategoryID,
+                              //ParentCategoryID = p.ParentCategoryID,
+                              //Title = p.Title
+                          }).ToList();
+            var list = result;
+
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetInfoAboutIngredient(int id)
+        {
+           // _parentId = id;
+            var result = (from p in db.Ingredient
+                          where p.IngredientID == id
+                          select new IngredientsViewModel()
+                          {
+                             // IngredientID = (int)p.IngredientID,
+                             CategoryID = p.CategoryID,
+                              //ParentCategoryID = p.ParentCategoryID,
+                              //Title = p.Title
+                          }).ToList();
+            var list = result;
+
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult CategoryJsonResultData(string sidx, string sord, int page, int rows)
         {
@@ -126,6 +196,7 @@ namespace MemberRMS.Controllers
 
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
+        
         public static IEnumerable<IngredientsViewModel> GetIngredients(String sidx, String sord)
         {
             using (var db = new RecipeManagmentSystemEntities())
@@ -164,10 +235,20 @@ namespace MemberRMS.Controllers
                     Weight = ingredient.Weight
                 };
                
-
+               
                 db.Ingredient.Add(item);
                 db.SaveChanges();
 
+                if (ingredient.SubIngredient != null)
+                    foreach (Tmodel t in ingredient.SubIngredient)
+                    {
+                        ProductIngredient subIngredient = new ProductIngredient();
+                        subIngredient.ProductID = item.IngredientID;
+                        subIngredient.IngredientID = t.id;
+                        subIngredient.ProductIngredientID = (db.ProductIngredient.Max(x => x.ProductIngredientID) + 1);
+                        db.ProductIngredient.Add(subIngredient);
+                        db.SaveChanges();
+                    }
             }
             // действия по добавлению
         }
@@ -184,29 +265,32 @@ namespace MemberRMS.Controllers
                 Cost = ingredient.Cost,
                 Weight = ingredient.Weight
             };
-
+            
+            
             if (ModelState.IsValid)
             {
                 db.Entry(item).State = EntityState.Modified;
                 db.SaveChanges();
 
+                if (ingredient.SubIngredient != null)
+                    foreach (Tmodel t in ingredient.SubIngredient)
+                    {
+                        ProductIngredient subIngredient = new ProductIngredient();
+                        subIngredient.ProductID = item.IngredientID;
+                        subIngredient.IngredientID = t.id;
+                        subIngredient.ProductIngredientID = (db.ProductIngredient.Max(x => x.ProductIngredientID) + 1);
+                        db.ProductIngredient.Add(subIngredient);
+                        db.SaveChanges();
+                       
+                    }
+               
+
+
+
+
             }
         }
 
-       
-
-
-        /*
-        // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Category category = db.Category.Find(id);
-            db.Category.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
         protected override void Dispose(bool disposing)
         {
             if (disposing)

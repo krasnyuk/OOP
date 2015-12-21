@@ -14,5 +14,11 @@ namespace MemberRMS.Models
         public Nullable<double> Weight { get; set; }
         public Nullable<int> CategoryID { get; set; }
         public string CategoryName { get; set; }
+        public List<Tmodel> SubIngredient { get; set; }
+
+    }
+    public class Tmodel
+    {
+        public int id { get; set; }
     }
 }
