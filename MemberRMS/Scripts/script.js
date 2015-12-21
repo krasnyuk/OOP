@@ -71,7 +71,12 @@
         var node = { CategoryID: data.rslt.obj.attr("id").replace("node_", "") };
         $.ajax({
             url: "/Categories/Remove",
-            data: JSON.stringify(node)
+            data: JSON.stringify(node),
+            type: "POST",
+            success: function (result) {
+            console.log("on success!");
+            alert(result.State);
+        }       
         });
         
     }).bind("create.jstree", function (e, data) {
